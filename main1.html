@@ -1,1 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sudarshan AI Labs — AI Agent UI Shades</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            color-scheme: dark;
+        }
 
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top left, rgba(255, 115, 185, 0.15), transparent 50%),
+                radial-gradient(circle at bottom right, rgba(99, 102, 241, 0.2), transparent 45%),
+                #1b1222;
+            color: #f5f3ff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 7vw, 6rem) 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        header p {
+            margin: 0;
+            max-width: 620px;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(229, 231, 235, 0.85);
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .actions button,
+        .actions a {
+            background: rgba(244, 244, 245, 0.06);
+            color: inherit;
+            border: 1px solid rgba(244, 244, 245, 0.1);
+            border-radius: 999px;
+            padding: 0.65rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 200ms ease, background 200ms ease, border-color 200ms ease;
+        }
+
+        .actions button:hover,
+        .actions a:hover {
+            transform: translateY(-2px);
+            background: rgba(244, 244, 245, 0.14);
+            border-color: rgba(244, 244, 245, 0.25);
+        }
+
+        main {
+            padding: 0 clamp(1rem, 4vw, 5rem) clamp(3rem, 6vw, 6rem);
+            flex: 1;
+        }
+
+        .phone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: clamp(2rem, 3vw, 3rem);
+            align-items: start;
+        }
+
+        .phone-shell {
+            position: relative;
+            padding: 1.1rem;
+            border-radius: 2.5rem;
+            background: linear-gradient(145deg, rgba(244, 244, 245, 0.12), rgba(24, 24, 27, 0.35));
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(244, 244, 245, 0.08);
+            backdrop-filter: blur(16px);
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 28px;
+            background: rgba(12, 10, 19, 0.82);
+            border-radius: 20px;
+        }
+
+        .screen {
+            background: rgba(17, 17, 23, 0.9);
+            border-radius: 1.8rem;
+            padding: 1.6rem 1.4rem 1.8rem;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            border: 1px solid rgba(244, 244, 245, 0.05);
+        }
+
+        .screen-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.65), transparent 65%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.45), transparent 60%),
+                var(--avatar-bg);
+            border: 1px solid rgba(244, 244, 245, 0.2);
+        }
+
+        .assistant-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .assistant-meta span {
+            font-size: 0.78rem;
+            color: rgba(226, 232, 240, 0.65);
+        }
+
+        .badge {
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(244, 244, 245, 0.85);
+            border: 1px solid rgba(244, 244, 245, 0.18);
+            background: rgba(244, 244, 245, 0.08);
+        }
+
+        .message-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .message {
+            padding: 0.95rem 1.1rem;
+            border-radius: 1.1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 92%;
+            box-shadow: 0 18px 32px rgba(15, 23, 42, 0.28);
+            position: relative;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: rgba(244, 244, 245, 0.12);
+        }
+
+        .message.agent {
+            align-self: flex-start;
+            color: rgba(249, 250, 255, 0.96);
+            background: var(--agent-gradient);
+        }
+
+        .message.agent::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.1rem;
+            border: 1px solid rgba(244, 244, 245, 0.1);
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .cta-card {
+            padding: 1.1rem 1.25rem;
+            border-radius: 1.2rem;
+            border: 1px solid rgba(244, 244, 245, 0.08);
+            background: rgba(244, 244, 245, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .cta-card strong {
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: rgba(244, 244, 245, 0.75);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .cta-buttons button {
+            flex: 1;
+            border-radius: 0.9rem;
+            border: none;
+            padding: 0.75rem 1.1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: #0f172a;
+        }
+
+        .cta-buttons button.primary {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.95), rgba(236, 72, 153, 0.9));
+        }
+
+        .cta-buttons button.secondary {
+            background: rgba(244, 244, 245, 0.9);
+        }
+
+        .input-bar {
+            margin-top: auto;
+            padding: 0.5rem;
+            border-radius: 1.1rem;
+            background: rgba(12, 10, 19, 0.65);
+            border: 1px solid rgba(244, 244, 245, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .input-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: inherit;
+            font-size: 0.92rem;
+            outline: none;
+        }
+
+        .input-bar button {
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(168, 85, 247, 0.9));
+            color: #f8fafc;
+            font-size: 1.1rem;
+            box-shadow: 0 18px 30px rgba(37, 99, 235, 0.25);
+        }
+
+        footer {
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(226, 232, 240, 0.6);
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 2.2rem 1.25rem 1.25rem;
+            }
+
+            main {
+                padding: 0 1.25rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="actions">
+            <span class="badge">AI Agent Gallery</span>
+            <button>Request a demo</button>
+            <a href="#">Talk to a specialist</a>
+        </div>
+        <h1>Different shades of Sudarshan AI Agent interface</h1>
+        <p>
+            Explore three themed variations of our conversational workspace. Each shade reimagines the same agent with
+            distinct gradients, accents, and subtle lighting so you can find the look that resonates with your brand.
+        </p>
+    </header>
+
+    <main>
+        <div class="phone-grid">
+            <article class="phone-shell" style="--avatar-bg: linear-gradient(135deg, #facc15, #fb7185); --agent-gradient: linear-gradient(160deg, rgba(236,72,153,0.85), rgba(251,191,36,0.9));">
+                <div class="phone-notch"></div>
+                <div class="screen">
+                    <div class="screen-header">
+                        <div style="display:flex; gap:0.75rem; align-items:center;">
+                            <div class="avatar"></div>
+                            <div class="assistant-meta">
+                                <strong>Text Muse</strong>
+                                <span>Creative copy · Online now</span>
+                            </div>
+                        </div>
+                        <span class="badge">Sunrise bloom</span>
+                    </div>
+                    <div class="message-stack">
+                        <div class="message agent">
+                            I'm ready to co-create product stories. Want inspiration for your launch headline or email copy?
+                        </div>
+                        <div class="message user">
+                            Hey Muse, can you draft a bold headline for our Ayurvedic skincare drop?
+                        </div>
+                        <div class="message agent">
+                            Absolutely! Here's a vibrant option:
+                            <br><br>
+                            <strong>“Glow like dawn. Ayurveda reimagined for the urban soul.”</strong>
+                            <br><br>
+                            Would you like three playful variations too?
+                        </div>
+                    </div>
+                    <div class="cta-card">
+                        <strong>Handoff options</strong>
+                        <div class="cta-buttons">
+                            <button class="primary">Review drafts</button>
+                            <button class="secondary">Share to Slack</button>
+                        </div>
+                    </div>
+                    <div class="input-bar">
+                        <input type="text" placeholder="Ask the agent to iterate…" />
+                        <button>➤</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="phone-shell" style="--avatar-bg: linear-gradient(135deg, #38bdf8, #6366f1); --agent-gradient: linear-gradient(155deg, rgba(56,189,248,0.9), rgba(99,102,241,0.85));">
+                <div class="phone-notch"></div>
+                <div class="screen" style="background: rgba(6, 10, 25, 0.92);">
+                    <div class="screen-header">
+                        <div style="display:flex; gap:0.75rem; align-items:center;">
+                            <div class="avatar"></div>
+                            <div class="assistant-meta">
+                                <strong>Insight Pilot</strong>
+                                <span>Marketing trends · Typing…</span>
+                            </div>
+                        </div>
+                        <span class="badge">Midnight aurora</span>
+                    </div>
+                    <div class="message-stack">
+                        <div class="message agent">
+                            I spotted five rising trends for wellness brands in 2025. Ready for a briefing now?
+                        </div>
+                        <div class="message user">
+                            Give me a snapshot with the KPI impact.
+                        </div>
+                        <div class="message agent">
+                            Trend: Micro-influencer retreats ↗
+                            <br><span style="opacity:0.75;">Reach +32% · CAC down 18%</span>
+                            <br><br>
+                            Trend: Bio-habit trackers ↗
+                            <br><span style="opacity:0.75;">Retention +22% · LTV +15%</span>
+                        </div>
+                    </div>
+                    <div class="cta-card">
+                        <strong>Next best action</strong>
+                        <div class="cta-buttons">
+                            <button class="primary" style="background: linear-gradient(135deg, rgba(59,130,246,0.95), rgba(14,165,233,0.95));">Schedule report</button>
+                            <button class="secondary">Export deck</button>
+                        </div>
+                    </div>
+                    <div class="input-bar">
+                        <input type="text" placeholder="Summarise as a LinkedIn post" />
+                        <button style="background: linear-gradient(135deg, rgba(14,165,233,0.95), rgba(244,114,182,0.9));">➤</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="phone-shell" style="--avatar-bg: linear-gradient(135deg, #f97316, #fb7185); --agent-gradient: linear-gradient(160deg, rgba(249,115,22,0.85), rgba(244,114,182,0.9));">
+                <div class="phone-notch"></div>
+                <div class="screen" style="background: rgba(26, 9, 15, 0.92);">
+                    <div class="screen-header">
+                        <div style="display:flex; gap:0.75rem; align-items:center;">
+                            <div class="avatar"></div>
+                            <div class="assistant-meta">
+                                <strong>Harmony Coach</strong>
+                                <span>Customer care · Response in 5s</span>
+                            </div>
+                        </div>
+                        <span class="badge">Crimson dusk</span>
+                    </div>
+                    <div class="message-stack">
+                        <div class="message agent">
+                            Good evening! I can follow up on open tickets or design a proactive delight campaign. What should we tackle?
+                        </div>
+                        <div class="message user">
+                            Let's send a calming check-in to premium members.
+                        </div>
+                        <div class="message agent">
+                            Drafted a nurture flow with a 48h mindful reminder and a curated playlist. Want me to launch it to Segment A now?
+                        </div>
+                    </div>
+                    <div class="cta-card">
+                        <strong>Automation control</strong>
+                        <div class="cta-buttons">
+                            <button class="primary" style="background: linear-gradient(135deg, rgba(251,113,133,0.95), rgba(249,115,22,0.9));">Activate flow</button>
+                            <button class="secondary">Preview email</button>
+                        </div>
+                    </div>
+                    <div class="input-bar">
+                        <input type="text" placeholder="Fine-tune the tone…" />
+                        <button style="background: linear-gradient(135deg, rgba(251,113,133,0.95), rgba(249,115,22,0.9));">➤</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        Sudarshan AI Labs · Designed for immersive AI agent experiences
+    </footer>
+</body>
+</html>
